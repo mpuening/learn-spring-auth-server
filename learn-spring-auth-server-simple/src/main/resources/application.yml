@@ -23,6 +23,8 @@ spring:
                 - "refresh_token"
                 - "client_credentials"
               redirect-uris:
+                - "http://localhost:8080/learn-webservices-jaxrs/openapi-ui/oauth2-redirect.html"
+                - "http://localhost:9080/learn-webservices-jaxrs/openapi-ui/oauth2-redirect.html"
                 - "http://localhost:8080/my-jaxrs-api/openapi-ui/oauth2-redirect.html"
                 - "http://localhost:9080/my-jaxrs-api/openapi-ui/oauth2-redirect.html"
                 - "http://localhost:9080/openapi/ui/oauth2-redirect.html"
