@@ -25,6 +25,7 @@
 
 	<modules>
 		<module>learn-spring-auth-server-simple</module>
+		<module>learn-spring-auth-server-client-confidential</module>
 	</modules>
 
 </project>

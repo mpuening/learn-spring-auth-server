@@ -35,6 +35,24 @@ spring:
                 - "profile"
                 - "user"
             require-authorization-consent: true
+          app-client:
+            registration:
+              client-id: "app-client"
+              client-secret: "{noop}secret1"
+              client-authentication-methods:
+                - "client_secret_basic"
+                - "client_secret_post"
+              authorization-grant-types:
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris:
+                - "http://localhost:8080/login/oauth2/code/app-client"
+              post-logout-redirect-uris:
+                - "http://localhost:8080/logged-out"
+              scopes:
+                - "openid"
+                - "user"
+            require-authorization-consent: true
 
 logging:
   level:

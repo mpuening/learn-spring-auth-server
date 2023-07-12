@@ -1,0 +1,28 @@
+spring:
+  thymeleaf:
+    cache: false
+
+  security:
+    oauth2:
+      client:
+        provider:
+          spring:
+            issuer-uri: http://authserver:9000
+        registration:
+          app-client:
+            provider: spring
+            client-name: app-client
+            client-id: app-client
+            client-secret: secret1
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/{registrationId}
+            scope:
+            - openid
+            - user
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: TRACE
+    org.springframework.security.oauth2: TRACE
