@@ -1,0 +1,75 @@
+spring:
+
+  thymeleaf:
+    cache: false
+
+  ldap:
+    embedded:
+      base-dn: dc=example,dc=org
+      credential:
+        username: uid=admin
+        password: secret
+      ldif: classpath:people.ldif
+      port: 8389
+      validation:
+        enabled: false
+
+  security:
+    oauth2:
+
+      authorizationserver:
+        client:
+          app-client:
+            registration:
+              client-id: app-client
+              client-secret: "{noop}secret1"
+              client-authentication-methods:
+                - client_secret_basic
+                - client_secret_post
+              authorization-grant-types:
+                - authorization_code
+                - refresh_token
+              redirect-uris:
+                - http://localhost:8080/login/oauth2/code/app-client
+              post-logout-redirect-uris:
+                - http://localhost:8080/logged-out
+              scopes:
+                - openid
+                - profile
+            require-authorization-consent: true
+
+      client:
+        provider:
+          spring:
+            #issuer-uri: http://127.0.0.1:8080
+            authorization-uri: http://127.0.0.1:8080/oauth2/authorize
+            token-uri: http://127.0.0.1:8080/oauth2/token
+            jwk-set-uri: http://127.0.0.1:8080/oauth2/jwks
+            
+        registration:
+          app-client:
+            provider: spring
+            client-name: app-client
+            client-id: app-client
+            client-secret: secret1
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/{registrationId}
+            scope:
+              - openid
+              - profile
+
+      resourceserver:
+        jwt:
+          #issuer-uri: http://127.0.0.1:8080
+          jwk-set-uri: http://127.0.0.1:8080/oauth2/jwks
+          audiences: app-client
+
+# See http://127.0.0.1:8080/.well-known/openid-configuration
+app:
+  security:
+    ldap-url: ldap://localhost:8389/dc=example,dc=org
+    end-session-endpoint: http://127.0.0.1:8080/connect/logout
+
+logging:
+  level:
+    org.springframework.security: trace
